@@ -53,11 +53,33 @@ const comment = {
 
 
 class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+
+   componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    });
+  }
+
   render() {
     return (
       <div>
-        <h1>Task 5: Converting a function to class</h1>
-        <h2>It is {this.props.date.toLocaleTimeString()}.</h2>
+        <h1>Task 5(II): Adding Local State to a Class</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
       </div>
     );
   }
