@@ -217,6 +217,87 @@ function Mailbox(props) {
   );
 }
 
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return (
+    <div className="warning">
+      Warning!
+    </div>
+  );
+}
+
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showWarning: true};
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+  }
+
+  handleToggleClick() {
+    this.setState(state => ({
+      showWarning: !state.showWarning
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <WarningBanner warn={this.state.showWarning} />
+        <button onClick={this.handleToggleClick}>
+          {this.state.showWarning ? 'Hide' : 'Show'}
+        </button>
+      </div>
+    );
+  }
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+  <li key={number.toString()}>
+  {number}
+</li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
+function Blog(props) {
+  const sidebar = (
+    <ul>
+      {props.posts.map((post) =>
+        <li key={post.id}>
+          {post.title}
+        </li>
+      )}
+    </ul>
+  );
+  const content = props.posts.map((post) =>
+    <div key={post.id}>
+      <h3>{post.title}</h3>
+      <p>{post.content}</p>
+    </div>
+  );
+  return (
+    <div>
+      {sidebar}
+      <hr />
+      {content}
+    </div>
+  );
+}
+
+const posts = [
+  {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
+  {id: 2, title: 'Installation', content: 'You can install React from npm.'}
+];
+
+const numbers = [1, 2, 3, 4, 5];
+
 const messages = ['React', 'Re: React', 'Re:Re: React'];
 
 function App() {
@@ -252,9 +333,14 @@ const element = (
     <br/>
     <Toggle />
     <br/>
+    Task 7:
     < LoggingButton/>
     <LoginControl />
     <Mailbox unreadMessages={messages}/>
+    <Page />
+    Task 8:
+    <NumberList numbers={numbers} />
+    <Blog posts={posts} />
 
     </h2>
   </div>
