@@ -560,10 +560,97 @@ class Calculator extends React.Component {
   }
 }
 
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    </div>
+  );
+}
+
+function WelcomeDialog() {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        Welcome
+      </h1>
+      <p className="Dialog-message">
+        Thank you for visiting our spacecraft!
+      </p>
+    </FancyBorder>
+  );
+}
+
+function Contacts() {
+  return <div className="Contacts" />;
+}
+
+function Chat() {
+  return <div className="Chat" />;
+}
+
+function SplitPane(props) {
+  return (
+    <div className="SplitPane">
+      <div className="SplitPane-left">
+        {props.left}
+      </div>
+      <div className="SplitPane-right">
+        {props.right}
+      </div>
+    </div>
+  );
+}
+
+
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}
+      </h1>
+      <p className="Dialog-message">
+        {props.message}
+      </p>
+      {props.children}
+    </FancyBorder>
+  );
+}
+
+class SignUpDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+    this.state = {login: ''};
+  }
+
+  render() {
+    return (
+      <Dialog title="Mars Exploration Program"
+              message="How should we refer to you?">
+        <input value={this.state.login}
+               onChange={this.handleChange} />
+        <button onClick={this.handleSignUp}>
+          Sign Me Up!
+        </button>
+      </Dialog>
+    );
+  }
+
+  handleChange(e) {
+    this.setState({login: e.target.value});
+  }
+
+  handleSignUp() {
+    alert(`Welcome aboard, ${this.state.login}!`);
+  }
+}
+
 function App() {
 const element = (
   <div>
-    Task 1-3: ,
+   <h1>Task 1-3:</h1>  ,
   <img src={user.avatarUrl}></img>
   <h1>
     Hello, {formatName(user)}!
@@ -577,7 +664,7 @@ const element = (
     <br/>
   </h1>
   <h2>
-    Task 4: ,
+    <h1>Task 4:</h1> ,
     <Welcome name="Sara" />
     <Welcome name="Cahal" />
     <Welcome name="Edite" />
@@ -593,22 +680,36 @@ const element = (
     <br/>
     <Toggle />
     <br/>
-    Task 7:
+    <h1>Task 7:</h1>
     < LoggingButton/>
     <LoginControl />
     <Mailbox unreadMessages={messages}/>
     <Page />
-    Task 8:
+    <h1>Task 8:</h1>
     <NumberList numbers={numbers} />
     <Blog posts={posts} />
-    Task 9:
+    <h1>Task 9:</h1>
     <NameForm />
     <br/>
     <EssayForm/>
     <FlavorForm />
     <Reservation />
-    Task 10:
+    <br/>
+    <h1>Task 10:</h1>
     <Calculator />
+    <h1>Task 11:</h1>
+    <WelcomeDialog />
+    <br/>
+    {/* will be explaned later */}
+    {/* <SplitPane
+      left={
+        <Contacts />
+      }
+      right={
+        <Chat />
+      } /> */}
+
+<SignUpDialog />
     </h2>
   </div>
 );
