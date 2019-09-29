@@ -49,4 +49,7 @@
     height: 100%; 
     background: pink;
   }
+  body {
+    padding: 5px
+}
   
